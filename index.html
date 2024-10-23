@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkySMP - O melhor servidor SMP de Minecraft para você explorar e se divertir!">
+    <title>SkySMP - Servidor Minecraft Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        :root {
+            --primary-color: #ec407a;
+            --secondary-color: #ff69b4;
+            --background-color: #ffecd2;
+            --text-color: #333;
+            --header-footer-bg: linear-gradient(135deg, rgba(244, 143, 177, 0.9), rgba(240, 98, 146, 0.9));
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            scroll-behavior: smooth;
+            background: linear-gradient(45deg, var(--background-color) 0%, #fcb69f 50%, var(--background-color) 100%);
+            background-size: 200% 200%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .tela-inicial {
+            height: 100vh;
+            background-image: url('fundo-minecraft.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            text-align: center;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .tela-inicial::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+            z-index: 1;
+        }
+
+        .tela-inicial img {
+            max-width: 50%;
+            max-height: 50%;
+            z-index: 2;
+            transition: all 0.5s ease;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .tela-inicial img:hover {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.6));
+        }
+
+        .tela-inicial h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            z-index: 2;
+            animation: glow 2s ease-in-out infinite alternate;
+            background: linear-gradient(45deg, #fff, var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(255,255,255,0.4);
+            font-weight: bold;
+            letter-spacing: 4px;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #fff, 0 0 15px var(--secondary-color);
+            }
+            to {
+                text-shadow: 0 0 15px #fff, 0 0 20px var(--secondary-color);
+            }
+        }
+
+        .tela-inicial p {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out, pulse 2s infinite;
+            text-shadow: 0 0 15px rgba(255,255,255,0.8);
+            font-weight: 600;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .seta-baixo {
+            position: absolute;
+            bottom: 20px;
+            font-size: 40px;
+            color: #ffffff;
+            animation: bounceAndGlow 2s infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        @keyframes bounceAndGlow {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+                text-shadow: 0 0 10px #fff;
+            }
+            40% {
+                transform: translateY(-30px);
+                text-shadow: 0 0 20px var(--secondary-color);
+            }
+            60% {
+                transform: translateY(-15px);
+                text-shadow: 0 0 15px var(--secondary-color);
+            }
+        }
+
+        .conteudo-principal {
+            background-color: rgba(252, 228, 236, 0.9);
+            padding: 20px;
+            position: relative;
+        }
+
+        .conteudo {
+            background-color: rgba(252, 228, 236, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 20px auto;
+            max-width: 1200px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .conteudo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        header {
+            background: var(--header-footer-bg);
+            text-align: center;
+            padding: 2rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        header img {
+            max-width: 200px;
+            width: 90%;
+            height: auto;
+            transition: all 0.5s ease;
+            animation: logoFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        header img:hover {
+            transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.8));
+        }
+
+        section {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            position: relative;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -5px;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            transform: translateX(-50%);
+            animation: borderGrow 1s ease-out forwards;
+        }
+
+        @keyframes borderGrow {
+            from { width: 0; }
+            to { width: 100px; }
+        }
+
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 2rem;
+        }
+
+        .galeria img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .galeria img:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .botoes {
+            text-align: center;
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .botao {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: #ffffff;
+            padding: 15px 30px;
+            margin: 10px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.5s ease;
+            box-shadow: 0 5px 15px rgba(236,64,122,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .botao::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .botao:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(236,64,122,0.4);
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+        }
+
+        .botao:hover::before {
+            animation: shine 1.5s;
+            opacity: 1;
+        }
+
+        footer {
+            background: var(--header-footer-bg);
+            color: #ffffff;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 300%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: footerShine 3s infinite linear;
+        }
+
+        @keyframes footerShine {
+            to { transform: translateX(100%); }
+        }
+
+        .redes-sociais {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .redes-sociais a {
+            color: #ffffff;
+            font-size: 28px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .redes-sociais a::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .redes-sociais a:hover {
+            transform: translateY(-5px) scale(1.2);
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.8));
+        }
+
+        .redes-sociais a:hover::before {
+            opacity: 0.5;
+            animation: pulse 1s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .tela-inicial h1 {
+                font-size: 3rem;
+            }
+            
+            .tela-inicial p {
+                font-size: 1.3rem;
+            }
+
+            .botoes {
+                flex-direction: column;
+            }
+
+            .botao {
+                width: 80%;
+                margin: 10px auto;
+            }
+        }
+
+    </style>
+</head>
+<body onload="window.location.hash = '';">
+    <div class="tela-inicial">
+        <img src="logo_skysmp.png" alt="Logo SkySMP">
+        <h1>Bem-vindo ao SkySMP</h1>
+        <p>O melhor servidor SMP para você explorar e se divertir!</p>
+        <a href="#conteudo-principal" class="seta-baixo">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </div>
+
+    <div id="conteudo-principal">
+        <header>
+            <img src="logo_skysmp.png" alt="Logo SkySMP">
+        </header>
+        
+        <main class="conteudo">
+            <section id="sobre">
+                <h2>Sobre o Servidor</h2>
+                <p>SkySMP é um servidor SMP (Survival Multiplayer) de Minecraft que oferece uma experiência única de jogo. Aqui, você pode criar personagens para interpretar, cuidar de ovos como se fossem seus filhos e explorar um mundo de fantasias totalmente novo.</p>
+            </section>
+            
+            <section id="lore">
+                <h2>Lore do Servidor</h2>
+                <p>No vasto e etéreo reino de SkySMP, onde ilhas flutuam em um céu sem fim, quatro divindades poderosas governam os elementos fundamentais da existência. Cada uma delas, com sua própria essência e caráter, influencia a vida dos habitantes deste mundo mágico.</p>
+                <h3>As Divindades</h3>
+                <ul>
+                    <li><strong>Aetheris - Divindade do Ar:</strong> Uma entidade etérea que controla os ventos e as tempestades.</li>
+                    <li><strong>Terragorn - Divindade da Terra:</strong> Um titã robusto que simboliza a força e a estabilidade.</li>
+                    <li><strong>Pyraxis - Divindade do Fogo:</strong> Uma figura ardente que guarda a paixão e a destruição.</li>
+                    <li><strong>Aquaelis - Divindade da Água:</strong> Uma beleza líquida que controla todos os corpos d'água e é a fonte da vida.</li>
+                </ul>
+                <p>As divindades de SkySMP não são apenas protetoras, mas também rivais. Os mortais são incentivados a formar alianças e rivalidades, buscando a aprovação de suas divindades, enquanto o destino do mundo flutua nas correntes do céu.</p>
+            </section>
+            
+            <section id="caracteristicas">
+                <h2>Características do Servidor</h2>
+                <ul>
+                    <li>Mundo de ilhas flutuantes</li>
+                    <li>Economia dinâmica entre jogadores</li>
+                    <li>Eventos bem organizados e frequentes</li>
+                    <li>Sistema de clãs avançado</li>
+                    <li>Mais de 90 mods cuidadosamente selecionados para enriquecer sua experiência</li>
+                    <li>Comunidade ativa e acolhedora</li>
+                </ul>
+            </section>
+
+            <section id="galeria">
+                <h2>Galeria de Imagens</h2>
+                <div class="galeria">
+                    <img src="image.png" alt="Estátuas majestosas no SkySMP">
+                    <img src="relogio.png" alt="O icônico relógio da Eggtown">
+                    <img src="treinamentos.png" alt="Área de treinamentos para aprimorar suas habilidades">
+                </div>
+            </section>
+
+            <section class="botoes">
+                <a href="https://drive.usercontent.google.com/download?id=1dciuFU0DR0A1Q8yeHi2nT0Yikp7lBIW1&export=download&authuser=0" class="botao" download>Baixar Modpack</a>
+                <a href="https://discord.gg/ZvBrgE7Kj8" class="botao" target="_blank">Acessar Discord</a>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 SkySMP. Todos os direitos reservados.</p>
+            <p>Sua jornada épica começa aqui!</p>
+            <div class="redes-sociais">
+                <a href="https://bsky.app/profile/skysmp.bsky.social" target="_blank" title="Bluesky"><i class="fab fa-skype"></i></a>
+                <a href="https://discord.gg/ZvBrgE7Kj8" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Enhanced scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    entry.target.classList.add('animate__animated');
+                    entry.target.classList.add('animate__fadeInUp');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Parallax effect for tela-inicial
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth/2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight/2) * 0.01;
+            document.querySelector('.tela-inicial img').style.transform = 
+                `translate(${moveX}px, ${moveY}px) scale(1.1)`;
+        });
+
+        // Enhanced image modal
+        document.querySelectorAll('.galeria img').forEach(img => {
+            img.addEventListener('click', function() {
+                const modal = document.createElement('div');
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                modal.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+                modal.style.display = 'flex';
+                modal.style.justifyContent = 'center';
+                modal.style.alignItems = 'center';
+                modal.style.zIndex = '1000';
+                modal.style.opacity = '0';
+                modal.style.transition = 'opacity 0.3s ease';
+                
+                const modalImg = document.createElement('img');
+                modalImg.src = this.src;
+                modalImg.style.maxWidth = '90%';
+                modalImg.style.maxHeight = '90%';
+                modalImg.style.borderRadius = '10px';
+                modalImg.style.transform = 'scale(0.9)';
+                modalImg.style.transition = 'transform 0.3s ease';
+                
+                modal.appendChild(modalImg);
+                document.body.appendChild(modal);
+                
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                    modalImg.style.transform = 'scale(1)';
+                }, 50);
+                
+                modal.addEventListener('click', function() {
+                    modal.style.opacity = '0';
+                    modalImg.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        document.body.removeChild(modal);
+                    }, 300);
+                });
+            });
+        });
+
+        // Smooth scroll enhancement
+        document.querySelector('.seta-baixo').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('#conteudo-principal').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+
+        // Add particle effect to tela-inicial
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80 },
+                color: { value: '#ffffff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5 },
+                size: { value: 3 },
+                move: { enable: true, speed: 2 }
+            }
+        });
+
+        // Add Google Analytics
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-XXXXX-Y', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>
